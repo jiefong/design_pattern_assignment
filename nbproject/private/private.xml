@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/Acquaintances.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/ContactManagementSoftware.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/SerializationUtil.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/CasualAcquaintances.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/PersonalFriends.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/MUI.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/ProfessionalFriends.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/CLJApplet.java</file>
-            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/Relatives.java</file>
+            <file>file:/D:/Files/sem7/Design%20Pattern/DP%20Assignment/design_pattern_assignment/src/contactmanagementsoftware/MUI.java</file>
+            <file>file:/D:/Files/sem7/Design%20Pattern/DP%20Assignment/design_pattern_assignment/src/contactmanagementsoftware/Manager.java</file>
+            <file>file:/D:/Files/sem7/Design%20Pattern/DP%20Assignment/design_pattern_assignment/src/contactmanagementsoftware/CLJApplet.java</file>
+            <file>file:/D:/Files/sem7/Design%20Pattern/DP%20Assignment/design_pattern_assignment/src/contactmanagementsoftware/Acquaintances.java</file>
         </group>
     </open-files>
 </project-private>
