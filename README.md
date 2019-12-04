@@ -20,11 +20,13 @@ jList1 -> Select Category List (Inside JScrollPane1)
 
 <h2>View 2</h2>
 jPanel2 -> Search Result Panel
+
 9. jButton9ActionPerformed => Back to Main Menu Button
 jTextPanel -> Search details Details (Inside JScrollPane3)
 
 <h2>View 3</h2>
 jPanel3 -> Casual Acquaintance Panel
+
 10. jButton10ActionPerformed => Add contact button
 11. jButton11ActionPerformed => Cancel Button
 
