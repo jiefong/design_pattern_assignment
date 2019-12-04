@@ -44,15 +44,16 @@ public class MUI extends javax.swing.JFrame {
     public void setA(ArrayList<ArrayList<Acquaintances>> a) {
         this.a = a;
     }
-    
-    public void setDescription(){
+
+    public void setDescription() {
+        System.out.println(x);
         nameField.setText("");
         mobileField.setText("");
         emailField.setText("");
         otherInformationField1.setText("");
         otherInformationField2.setText("");
         otherInformationField3.setText("");
-        if(!dflag){
+        if (!dflag) {
             nameField.setEditable(true);
             mobileField.setEditable(true);
             emailField.setEditable(true);
@@ -64,30 +65,31 @@ public class MUI extends javax.swing.JFrame {
             op = "Add";
         } else {
             op = "Edit";
-        if(!flag){
+        }
+        if (!flag) {
             jButtonConfirmDetails.setText("Save");
-            Acquaintances e = a.get(x).get(num);            
+            Acquaintances e = a.get(x).get(num);
             nameField.setText(e.getName());
             mobileField.setText(e.getMobileNo());
             emailField.setText(e.getEmail());
-            switch(x){
+            switch (x) {
                 case 0:
-                    PersonalFriends perF = (PersonalFriends)e;
+                    PersonalFriends perF = (PersonalFriends) e;
                     otherInformationField1.setText(perF.getEvents());
                     otherInformationField2.setText(perF.getAContext());
                     otherInformationField3.setText(perF.getADate());
                     break;
                 case 1:
-                    Relatives rel = (Relatives)e;
+                    Relatives rel = (Relatives) e;
                     otherInformationField1.setText(rel.getBDate());
                     otherInformationField2.setText(rel.getLDate());
                     break;
                 case 2:
-                    ProfessionalFriends proF = (ProfessionalFriends)e;
+                    ProfessionalFriends proF = (ProfessionalFriends) e;
                     otherInformationField1.setText(proF.getCommonInterests());
                     break;
                 case 3:
-                    CasualAcquaintances ca = (CasualAcquaintances)e;
+                    CasualAcquaintances ca = (CasualAcquaintances) e;
                     otherInformationField1.setText(ca.getWhenWhere());
                     otherInformationField2.setVisible(true);
                     otherInformationField3.setVisible(true);
@@ -100,9 +102,10 @@ public class MUI extends javax.swing.JFrame {
         }
         jButtonConfirmDetails.setVisible(true);
         jButtonCancleDetails.setVisible(true);
-        if(flag)
+        if (flag) {
             jButtonConfirmDetails.setText("Add");
-        switch(x){
+        }
+        switch (x) {
             case 0:
                 otherInformationField2.setVisible(true);
                 otherInformationField3.setVisible(true);
@@ -118,7 +121,7 @@ public class MUI extends javax.swing.JFrame {
                 jLabelOtherInformation3.setText("<html>First Acquaintance Date:<br>(dd/mm/yyyy)</html>");
                 break;
             case 1:
-                jPanelDetailsForm.setBorder(javax.swing.BorderFactory.createTitledBorder(null, op + " Relatives Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16))); 
+                jPanelDetailsForm.setBorder(javax.swing.BorderFactory.createTitledBorder(null, op + " Relatives Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16)));
                 jLabelOtherInformation1.setText("<html>Relatives Birthday:<br> (dd/mm/yyyy)</html>");
                 jLabel8OtherInformation2.setVisible(true);
                 jLabelOtherInformation1.setVisible(true);
@@ -130,7 +133,7 @@ public class MUI extends javax.swing.JFrame {
                 jScrollPane5.setVisible(false);
                 break;
             case 2:
-                jPanelDetailsForm.setBorder(javax.swing.BorderFactory.createTitledBorder(null, op + " Professional Friends Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16))); 
+                jPanelDetailsForm.setBorder(javax.swing.BorderFactory.createTitledBorder(null, op + " Professional Friends Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16)));
                 jLabelOtherInformation1.setText("Common Interests: ");
                 jLabelOtherInformation1.setVisible(true);
                 jLabel8OtherInformation2.setVisible(false);
@@ -155,7 +158,7 @@ public class MUI extends javax.swing.JFrame {
             default:
                 break;
         }
-        if(dflag){
+        if (dflag) {
             nameField.setEditable(false);
             mobileField.setEditable(false);
             emailField.setEditable(false);
@@ -166,10 +169,10 @@ public class MUI extends javax.swing.JFrame {
             jButtonCancleDetails.setVisible(false);
             jPanelDetailsForm.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Display Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16)));
         }
+
     }
-    }
-    
-    public MUI(){
+
+    public MUI() {
         initComponents();
 //        manager = new Manager(mg);
         String[] columnNames = {"S.No", "Name", "Mobile", " Email"};
@@ -182,10 +185,9 @@ public class MUI extends javax.swing.JFrame {
         DefaultTableModel tableModel = (DefaultTableModel) jXTableDetialsDisplay.getModel();
         tableModel.setRowCount(0);
         ArrayList<Acquaintances> list;
-        try{        
+        try {
             list = a.get(jListAcquaintancesCatagory.getSelectedIndex());
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return;
         }
         for (int i = 0; i < list.size(); i++) {
@@ -593,28 +595,29 @@ public class MUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {
         int index = jListAcquaintancesCatagory.getSelectedIndex();
-        if(index<0){
+        if (index < 0) {
             JOptionPane.showMessageDialog(mg, "Select a category!");
             return;
         }
         jPanelMainPage.setVisible(false);
         jPanelDetailsForm.setVisible(true);
         x = index;
+        System.out.println(x);
         flag = true;
         dflag = false;
         setDescription();
-    }                                          
+    }
 
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {
         int index = jListAcquaintancesCatagory.getSelectedIndex();
-        if(index<0){
+        if (index < 0) {
             JOptionPane.showMessageDialog(mg, "Select a category!");
             return;
         }
         int tindex = jXTableDetialsDisplay.getSelectedRow();
-        if(tindex < 0){
+        if (tindex < 0) {
             JOptionPane.showMessageDialog(mg, "Select an entry!");
             return;
         }
@@ -628,25 +631,26 @@ public class MUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(mg, "Successfully Deleted");
             mg.setUpTableData();
         }
-    }                                             
+    }
 
-    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        String s = (String)JOptionPane.showInputDialog(
-            mg,
-            "Enter name: ",
-            "Input",
-            JOptionPane.PLAIN_MESSAGE,
-            null,
-            null,
-            "");
-        if(s==null)
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {
+        String s = (String) JOptionPane.showInputDialog(
+                mg,
+                "Enter name: ",
+                "Input",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "");
+        if (s == null) {
             return;
+        }
         jPanelMainPage.setVisible(false);
         jPanelSearchResult.setVisible(true);
         str = s;
         details.setContentType("text/html");
         runn();
-    }                                             
+    }
 
     private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
         System.exit(0);        // TODO add your handling code here:
@@ -656,14 +660,14 @@ public class MUI extends javax.swing.JFrame {
         setUpTableData();
     }//GEN-LAST:event_jListAcquaintancesCatagoryValueChanged
 
-    private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {
         int index = jListAcquaintancesCatagory.getSelectedIndex();
-        if(index<0){
+        if (index < 0) {
             JOptionPane.showMessageDialog(mg, "Select a category!");
             return;
         }
         int tindex = jXTableDetialsDisplay.getSelectedRow();
-        if(tindex < 0){
+        if (tindex < 0) {
             JOptionPane.showMessageDialog(mg, "Select an entry!");
             return;
         }
@@ -674,16 +678,16 @@ public class MUI extends javax.swing.JFrame {
         setDescription();
         jPanelMainPage.setVisible(false);
         jPanelDetailsForm.setVisible(true);
-    }                                           
+    }
 
-    private void jButtonViewFullDetailActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+    private void jButtonViewFullDetailActionPerformed(java.awt.event.ActionEvent evt) {
         int index = jListAcquaintancesCatagory.getSelectedIndex();
-        if(index<0){
+        if (index < 0) {
             JOptionPane.showMessageDialog(mg, "Select a category!");
             return;
         }
         int tindex = jXTableDetialsDisplay.getSelectedRow();
-        if(tindex < 0){
+        if (tindex < 0) {
             JOptionPane.showMessageDialog(mg, "Select an entry!");
             return;
         }
@@ -694,7 +698,7 @@ public class MUI extends javax.swing.JFrame {
         jPanelDetailsForm.setVisible(true);
         dflag = true;
         setDescription();
-    }                                                     
+    }
 
     public void runn() {
         String s = "<html> <b>Search results:</b><br>Found!<br><br>Acquaintance Details: <br>";
@@ -766,8 +770,8 @@ public class MUI extends javax.swing.JFrame {
         }
         details.setText(s);
     }
-    
-    private void jButtonReadFromFileActionPerformed(java.awt.event.ActionEvent evt) {                                                    
+
+    private void jButtonReadFromFileActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
         int result = fileChooser.showOpenDialog(this);
@@ -792,20 +796,21 @@ public class MUI extends javax.swing.JFrame {
 
         }
         mg.setUpTableData();
-    }                                                   
+    }
 
-    private void jButtonSaveAsFileActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        String s = (String)JOptionPane.showInputDialog(
-            mg,
-            "Enter file name: (*.ser)",
-            "Input",
-            JOptionPane.PLAIN_MESSAGE,
-            null,
-            null,
-            "output.ser");
-        if(s==null)
-        return;
-        if(!s.endsWith(".ser")){
+    private void jButtonSaveAsFileActionPerformed(java.awt.event.ActionEvent evt) {
+        String s = (String) JOptionPane.showInputDialog(
+                mg,
+                "Enter file name: (*.ser)",
+                "Input",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                "output.ser");
+        if (s == null) {
+            return;
+        }
+        if (!s.endsWith(".ser")) {
             JOptionPane.showMessageDialog(mg, "File name should end with .ser");
             return;
         }
@@ -828,7 +833,7 @@ public class MUI extends javax.swing.JFrame {
             return;
         }
         JOptionPane.showMessageDialog(mg, s + " saved successfully");
-    }                                                 
+    }
 
     private void jButtonBackToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackToMainMenuActionPerformed
         jPanelSearchResult.setVisible(false);
@@ -865,137 +870,145 @@ public class MUI extends javax.swing.JFrame {
             return true;
         }
     }
-        
-    private void jButtonConfirmDetailsActionPerformed(java.awt.event.ActionEvent evt) {                                                      
+
+    private void jButtonConfirmDetailsActionPerformed(java.awt.event.ActionEvent evt) {
         dflag = true;
         String Name = nameField.getText();
-        if(Name.isEmpty()){
+        if (Name.isEmpty()) {
             JOptionPane.showMessageDialog(mg, "Enter a name");
             return;
         }
         String Mobile = mobileField.getText();
-        if(!MobileNoChecker(Mobile)){
+        if (!MobileNoChecker(Mobile)) {
             JOptionPane.showMessageDialog(mg, "Enter a valid mobile number (6-15 digits)");
             return;
         }
         String Email = emailField.getText();
-        if(!Email.contains("@")){
+        if (!Email.contains("@")) {
             JOptionPane.showMessageDialog(mg, "Enter a valid email");
             return;
         }
-        String One,Two,Three;
-        switch(x){
+        String One, Two, Three;
+        switch (x) {
             case 0: //perF
                 One = otherInformationField1.getText();
-                if(One.isEmpty() || One.length() > 300){
+                if (One.isEmpty() || One.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
                 Two = otherInformationField2.getText();
-                if(Two.isEmpty() || Two.length() > 300){
+                if (Two.isEmpty() || Two.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
                 Three = otherInformationField3.getText();
-                if(!validDate(Three)){
+                if (!validDate(Three)) {
                     return;
                 }
-                if(Three.isEmpty() || Three.length() > 300){
+                if (Three.isEmpty() || Three.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
                 PersonalFriends perF;
-                if(flag)
+                if (flag) {
                     perF = new PersonalFriends();
-                else
-                    perF = (PersonalFriends)a.get(x).get(num);
+                } else {
+                    perF = (PersonalFriends) a.get(x).get(num);
+                }
                 perF.setName(Name);
                 perF.setMobileNo(Mobile);
                 perF.setEmail(Email);
                 perF.setEvents(One);
                 perF.setAContext(Two);
                 perF.setADate(Three);
-                if(flag)
+                if (flag) {
                     a.get(x).add(perF);
-                    //this.a.get(x).add(perF);
+                }
+                //this.a.get(x).add(perF);
                 break;
             case 1: //rel
                 One = otherInformationField1.getText();
-                if(One.isEmpty() || One.length() > 300){
+                if (One.isEmpty() || One.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
-                if(!validDate(One)){
+                if (!validDate(One)) {
                     return;
                 }
                 Two = otherInformationField2.getText();
-                if(Two.isEmpty() || Two.length() > 300){
+                if (Two.isEmpty() || Two.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
-                if(!validDate(Two)){
+                if (!validDate(Two)) {
                     return;
                 }
                 Relatives rel;
-                if(flag)
+                if (flag) {
                     rel = new Relatives();
-                else
-                    rel = (Relatives)a.get(x).get(num);
+                } else {
+                    rel = (Relatives) a.get(x).get(num);
+                }
                 rel.setName(Name);
                 rel.setMobileNo(Mobile);
                 rel.setEmail(Email);
                 rel.setBDate(One);
                 rel.setLDate(Two);
-                if(flag)
+                if (flag) {
                     a.get(x).add(rel);
+                }
                 break;
             case 2: //proF
                 One = otherInformationField1.getText();
-                if(One.isEmpty() || One.length() > 300){
+                if (One.isEmpty() || One.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
                 ProfessionalFriends proF;
-                if(flag)
+                if (flag) {
                     proF = new ProfessionalFriends();
-                else
-                    proF = (ProfessionalFriends)a.get(x).get(num);
+                } else {
+                    proF = (ProfessionalFriends) a.get(x).get(num);
+                }
                 proF.setName(Name);
                 proF.setMobileNo(Mobile);
                 proF.setEmail(Email);
                 proF.setCommonInterests(One);
-                if(flag)
+                if (flag) {
                     a.get(x).add(proF);
+                }
                 break;
-                case 3: //ca
+            case 3: //ca
                 One = otherInformationField1.getText();
-                if(One.isEmpty() || One.length() > 300){
+                if (One.isEmpty() || One.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
                 Two = otherInformationField2.getText();
-                if(Two.isEmpty() || Two.length() > 300){
+                if (Two.isEmpty() || Two.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
                 Three = otherInformationField3.getText();
-                if(Three.isEmpty() || Three.length() > 300){
+                if (Three.isEmpty() || Three.length() > 300) {
                     JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
                     return;
                 }
                 CasualAcquaintances ca;
-                if(flag)
+                if (flag) {
                     ca = new CasualAcquaintances();
-                else
-                    ca = (CasualAcquaintances)a.get(x).get(num);
+                } else {
+                    ca = (CasualAcquaintances) a.get(x).get(num);
+                }
                 ca.setName(Name);
                 ca.setMobileNo(Mobile);
                 ca.setEmail(Email);
                 ca.setWhenWhere(One);
                 ca.setCircumstances(Two);
                 ca.setOtherInfo(Three);
-                if(flag)
+                if (flag) {
                     a.get(x).add(ca);
+                }
                 break;
             default:
                 break;
@@ -1003,7 +1016,7 @@ public class MUI extends javax.swing.JFrame {
         jPanelMainPage.setVisible(true);
         jPanelDetailsForm.setVisible(false);
         mg.setUpTableData();
-    }                                                     
+    }
 
     private void jButtonCancleDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancleDetailsActionPerformed
         jPanelMainPage.setVisible(true);
