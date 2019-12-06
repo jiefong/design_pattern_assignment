@@ -71,7 +71,7 @@ import java.util.Scanner;
 //}
 
 
-public abstract class Acquaintances implements Serializable{
+public abstract class Acquaintances implements Serializable, AcquaintancesSystem{
     private String name;
     private String mobileNo;
     private String email;

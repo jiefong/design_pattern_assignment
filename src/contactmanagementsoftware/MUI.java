@@ -40,8 +40,7 @@ public class MUI extends javax.swing.JFrame {
     private ArrayList<ArrayList<Acquaintances>> temp;
     private int x;
     private int num;
-    private boolean flag;
-    private boolean dflag;
+
     private String op;
     private String str;
 //    private ArrayList<JTextComponent> acquaintanceFormComponent = new ArrayList<>();
@@ -52,6 +51,7 @@ public class MUI extends javax.swing.JFrame {
     private PanelState addState;
     private PanelState editState;
     private PanelState displayState;
+    private PanelState voidState;
 
     public void setMg(MUI mg) {
         this.mg = mg;
@@ -91,7 +91,8 @@ public class MUI extends javax.swing.JFrame {
         editState = new EditState(this);
         addState = new AddState(this);
         displayState = new DisplayState(this);
-
+        voidState = new VoidState(this);
+        currentPanelState = voidState;
         acqFactory = new AcquaintancesFactory();
     }
 
@@ -519,10 +520,9 @@ public class MUI extends javax.swing.JFrame {
         jPanelDetailsForm.setVisible(true);
         x = index;
         System.out.println(x);
-        flag = true;
-        dflag = false;
+
         //using state dp
-        currentPanelState = addState;
+        currentPanelState.setState(addState);
         setDescription();
     }
 
@@ -588,10 +588,8 @@ public class MUI extends javax.swing.JFrame {
             return;
         }
         num = tindex;
-        flag = false;
-        dflag = false;
         x = index;
-        currentPanelState = editState;
+        currentPanelState.setState(editState);
         setDescription();
         jPanelMainPage.setVisible(false);
         jPanelDetailsForm.setVisible(true);
@@ -609,13 +607,11 @@ public class MUI extends javax.swing.JFrame {
             return;
         }
         num = tindex;
-        flag = false;
         x = index;
         jPanelMainPage.setVisible(false);
         jPanelDetailsForm.setVisible(true);
-        dflag = true;
         //using state dp
-        currentPanelState = displayState;
+        currentPanelState.setState(displayState);
         setDescription();
     }
 
@@ -792,7 +788,6 @@ public class MUI extends javax.swing.JFrame {
 
     // New Details
     private void jButtonConfirmDetailsActionPerformed(java.awt.event.ActionEvent evt) {
-        dflag = true;
         String name = nameField.getText();
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(mg, "Enter a name");
@@ -820,7 +815,7 @@ public class MUI extends javax.swing.JFrame {
                 if (!performOtherInformationFieldCheckingPF(otherInformation1, otherInformation2, otherInformation3)) {
                     return;
                 }
-                if (flag) {
+                if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.PF, name, mobile, email, otherInfoArray);
                     a.get(x).add(acq);
                 } else {
@@ -866,7 +861,7 @@ public class MUI extends javax.swing.JFrame {
                 if (!performOtherInformationFieldCheckingR(otherInformation1, otherInformation2, otherInformation3)) {
                     return;
                 }
-                if (flag) {
+                if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.R, name, mobile, email, otherInfoArray);
                     a.get(x).add(acq);
                 } else {
@@ -908,7 +903,7 @@ public class MUI extends javax.swing.JFrame {
                 if (!performOtherInformationFieldCheckingPROF(otherInformation1, otherInformation2, otherInformation3)) {
                     return;
                 }
-                if (flag) {
+                if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.PROF, name, mobile, email, otherInfoArray);
                     a.get(x).add(acq);
                 } else {
@@ -933,7 +928,7 @@ public class MUI extends javax.swing.JFrame {
                 if (!performOtherInformationFieldCheckingCA(otherInformation1, otherInformation2, otherInformation3)) {
                     return;
                 }
-                if (flag) {
+                if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.CA, name, mobile, email, otherInfoArray);
                     a.get(x).add(acq);
                 } else {
@@ -974,6 +969,8 @@ public class MUI extends javax.swing.JFrame {
             default:
                 break;
         }
+        currentPanelState.setState(voidState);
+        setDescription();
         jPanelMainPage.setVisible(true);
         jPanelDetailsForm.setVisible(false);
         mg.setUpTableData();
@@ -1072,6 +1069,8 @@ public class MUI extends javax.swing.JFrame {
     }
 
     private void jButtonCancleDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancleDetailsActionPerformed
+        currentPanelState.setState(voidState);
+        setDescription();
         jPanelMainPage.setVisible(true);
         jPanelDetailsForm.setVisible(false);
     }//GEN-LAST:event_jButtonCancleDetailsActionPerformed
@@ -1320,5 +1319,13 @@ public class MUI extends javax.swing.JFrame {
     
     public int getX(){
         return x;
+    }
+    
+    public void setPanelState(PanelState state){
+        currentPanelState = state;
+    }
+    
+    public PanelState getPanelState(){
+        return currentPanelState;
     }
 }

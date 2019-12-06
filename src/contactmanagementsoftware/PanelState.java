@@ -10,12 +10,20 @@ package contactmanagementsoftware;
  * @author jiefo
  */
 public abstract class PanelState {
-    
+
     MUI mui;
-    
-    public PanelState(MUI mui){
+
+    public PanelState(MUI mui) {
         this.mui = mui;
     }
-    
+
     public abstract void setDescription();
+
+    public void setState(PanelState state) {
+        mui.setPanelState(state);
+    }
+    
+    public PanelState getState(){
+        return mui.getPanelState();
+    }
 }
