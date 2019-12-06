@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
@@ -35,7 +36,8 @@ public class MUI extends javax.swing.JFrame {
     private String op;
     private String str;
 //    private ArrayList<JTextComponent> acquaintanceFormComponent = new ArrayList<>();
-    private Manager manager;
+//    private Manager manager;
+    private AcquaintancesFactory acqFactory;
 
     public void setMg(MUI mg) {
         this.mg = mg;
@@ -43,6 +45,21 @@ public class MUI extends javax.swing.JFrame {
 
     public void setA(ArrayList<ArrayList<Acquaintances>> a) {
         this.a = a;
+    }
+
+    private void setFormFieldEditable(boolean b) {
+        nameField.setEditable(b);
+        mobileField.setEditable(b);
+        emailField.setEditable(b);
+        otherInformationField1.setEditable(b);
+        otherInformationField2.setEditable(b);
+        otherInformationField3.setEditable(b);
+    }
+
+    private void setFormFieldVisibility(boolean bOtherInformationField1, boolean bOtherInformationField2, boolean bOtherInformationField3) {
+        otherInformationField1.setVisible(bOtherInformationField1);
+        otherInformationField2.setVisible(bOtherInformationField2);
+        otherInformationField3.setVisible(bOtherInformationField3);
     }
 
     public void setDescription() {
@@ -54,19 +71,20 @@ public class MUI extends javax.swing.JFrame {
         otherInformationField2.setText("");
         otherInformationField3.setText("");
         if (!dflag) {
-            nameField.setEditable(true);
-            mobileField.setEditable(true);
-            emailField.setEditable(true);
-            otherInformationField1.setEditable(true);
-            otherInformationField2.setEditable(true);
-            otherInformationField3.setEditable(true);
+            setFormFieldEditable(true);
+//            nameField.setEditable(true);
+//            mobileField.setEditable(true);
+//            emailField.setEditable(true);
+//            otherInformationField1.setEditable(true);
+//            otherInformationField2.setEditable(true);
+//            otherInformationField3.setEditable(true);
         }
         if (flag) {
             op = "Add";
         } else {
             op = "Edit";
         }
-        if (!flag) {
+        if (!flag) { // Edit
             jButtonConfirmDetails.setText("Save");
             Acquaintances e = a.get(x).get(num);
             nameField.setText(e.getName());
@@ -179,6 +197,7 @@ public class MUI extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(null, columnNames);
         jXTableDetialsDisplay.setModel(model);
         setUpTableData();
+        acqFactory = new AcquaintancesFactory();
     }
 
     public final void setUpTableData() {
@@ -871,144 +890,186 @@ public class MUI extends javax.swing.JFrame {
         }
     }
 
+    // New Details
     private void jButtonConfirmDetailsActionPerformed(java.awt.event.ActionEvent evt) {
         dflag = true;
-        String Name = nameField.getText();
-        if (Name.isEmpty()) {
+        String name = nameField.getText();
+        if (name.isEmpty()) {
             JOptionPane.showMessageDialog(mg, "Enter a name");
             return;
         }
-        String Mobile = mobileField.getText();
-        if (!MobileNoChecker(Mobile)) {
+        String mobile = mobileField.getText();
+        if (!MobileNoChecker(mobile)) {
             JOptionPane.showMessageDialog(mg, "Enter a valid mobile number (6-15 digits)");
             return;
         }
-        String Email = emailField.getText();
-        if (!Email.contains("@")) {
+        String email = emailField.getText();
+        if (!email.contains("@")) {
             JOptionPane.showMessageDialog(mg, "Enter a valid email");
             return;
         }
-        String One, Two, Three;
+
+        Acquaintances acq;
+        String otherInformation1, otherInformation2, otherInformation3;
+        otherInformation1 = otherInformationField1.getText();
+        otherInformation2 = otherInformationField2.getText();
+        otherInformation3 = otherInformationField3.getText();
+        String[] otherInfoArray = {otherInformation1, otherInformation2, otherInformation3};
         switch (x) {
             case 0: //perF
-                One = otherInformationField1.getText();
-                if (One.isEmpty() || One.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                if (!performOtherInformationFieldCheckingPF(otherInformation1, otherInformation2, otherInformation3)) {
                     return;
                 }
-                Two = otherInformationField2.getText();
-                if (Two.isEmpty() || Two.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-                    return;
-                }
-                Three = otherInformationField3.getText();
-                if (!validDate(Three)) {
-                    return;
-                }
-                if (Three.isEmpty() || Three.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-                    return;
-                }
-                PersonalFriends perF;
                 if (flag) {
-                    perF = new PersonalFriends();
+                    acq = createAcquaintancesInstance(AcquaintancesType.PF, name, mobile, email, otherInfoArray);
+                    a.get(x).add(acq);
                 } else {
-                    perF = (PersonalFriends) a.get(x).get(num);
+                    acq = a.get(x).get(num);
+                    updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
-                perF.setName(Name);
-                perF.setMobileNo(Mobile);
-                perF.setEmail(Email);
-                perF.setEvents(One);
-                perF.setAContext(Two);
-                perF.setADate(Three);
-                if (flag) {
-                    a.get(x).add(perF);
-                }
-                //this.a.get(x).add(perF);
+//                One = otherInformationField1.getText();
+//                if (One.isEmpty() || One.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                Two = otherInformationField2.getText();
+//                if (Two.isEmpty() || Two.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                Three = otherInformationField3.getText();
+//                if (!validDate(Three)) {
+//                    return;
+//                }
+//                if (Three.isEmpty() || Three.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                PersonalFriends perF;
+
+//                if (flag) {
+//                    perF = new PersonalFriends();
+//                } else {
+//                    perF = (PersonalFriends) a.get(x).get(num);
+//                }
+//                perF.setName(Name);
+//                perF.setMobileNo(Mobile);
+//                perF.setEmail(Email);
+//                perF.setEvents(One);
+//                perF.setAContext(Two);
+//                perF.setADate(Three);
+//                if (flag) {
+//                    a.get(x).add(perF);
+//                }
                 break;
             case 1: //rel
-                One = otherInformationField1.getText();
-                if (One.isEmpty() || One.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                if (!performOtherInformationFieldCheckingR(otherInformation1, otherInformation2, otherInformation3)) {
                     return;
                 }
-                if (!validDate(One)) {
-                    return;
-                }
-                Two = otherInformationField2.getText();
-                if (Two.isEmpty() || Two.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-                    return;
-                }
-                if (!validDate(Two)) {
-                    return;
-                }
-                Relatives rel;
                 if (flag) {
-                    rel = new Relatives();
+                    acq = createAcquaintancesInstance(AcquaintancesType.R, name, mobile, email, otherInfoArray);
+                    a.get(x).add(acq);
                 } else {
-                    rel = (Relatives) a.get(x).get(num);
+                    acq = a.get(x).get(num);
+                    updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
-                rel.setName(Name);
-                rel.setMobileNo(Mobile);
-                rel.setEmail(Email);
-                rel.setBDate(One);
-                rel.setLDate(Two);
-                if (flag) {
-                    a.get(x).add(rel);
-                }
+//                One = otherInformationField1.getText();
+//                if (One.isEmpty() || One.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                if (!validDate(One)) {
+//                    return;
+//                }
+//                Two = otherInformationField2.getText();
+//                if (Two.isEmpty() || Two.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                if (!validDate(Two)) {
+//                    return;
+//                }
+//                Relatives rel;
+//                if (flag) {
+//                    rel = new Relatives();
+//                } else {
+//                    rel = (Relatives) a.get(x).get(num);
+//                }
+//                rel.setName(Name);
+//                rel.setMobileNo(Mobile);
+//                rel.setEmail(Email);
+//                rel.setBDate(One);
+//                rel.setLDate(Two);
+//                if (flag) {
+//                    a.get(x).add(rel);
+//                }
                 break;
             case 2: //proF
-                One = otherInformationField1.getText();
-                if (One.isEmpty() || One.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                if (!performOtherInformationFieldCheckingPROF(otherInformation1, otherInformation2, otherInformation3)) {
                     return;
                 }
-                ProfessionalFriends proF;
                 if (flag) {
-                    proF = new ProfessionalFriends();
+                    acq = createAcquaintancesInstance(AcquaintancesType.PROF, name, mobile, email, otherInfoArray);
+                    a.get(x).add(acq);
                 } else {
-                    proF = (ProfessionalFriends) a.get(x).get(num);
+                    acq = a.get(x).get(num);
+                    updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
-                proF.setName(Name);
-                proF.setMobileNo(Mobile);
-                proF.setEmail(Email);
-                proF.setCommonInterests(One);
-                if (flag) {
-                    a.get(x).add(proF);
-                }
+//                One = otherInformationField1.getText();
+//                if (One.isEmpty() || One.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                ProfessionalFriends proF;
+//                proF.setName(Name);
+//                proF.setMobileNo(Mobile);
+//                proF.setEmail(Email);
+//                proF.setCommonInterest(One);
+//                if (flag) {
+//                    a.get(x).add(proF);
+//                }
                 break;
             case 3: //ca
-                One = otherInformationField1.getText();
-                if (One.isEmpty() || One.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                if (!performOtherInformationFieldCheckingCA(otherInformation1, otherInformation2, otherInformation3)) {
                     return;
                 }
-                Two = otherInformationField2.getText();
-                if (Two.isEmpty() || Two.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-                    return;
-                }
-                Three = otherInformationField3.getText();
-                if (Three.isEmpty() || Three.length() > 300) {
-                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-                    return;
-                }
-                CasualAcquaintances ca;
                 if (flag) {
-                    ca = new CasualAcquaintances();
+                    acq = createAcquaintancesInstance(AcquaintancesType.CA, name, mobile, email, otherInfoArray);
+                    a.get(x).add(acq);
                 } else {
-                    ca = (CasualAcquaintances) a.get(x).get(num);
+                    acq = a.get(x).get(num);
+                    updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
-                ca.setName(Name);
-                ca.setMobileNo(Mobile);
-                ca.setEmail(Email);
-                ca.setWhenWhere(One);
-                ca.setCircumstances(Two);
-                ca.setOtherInfo(Three);
-                if (flag) {
-                    a.get(x).add(ca);
-                }
+//                One = otherInformationField1.getText();
+//                if (One.isEmpty() || One.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                Two = otherInformationField2.getText();
+//                if (Two.isEmpty() || Two.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                Three = otherInformationField3.getText();
+//                if (Three.isEmpty() || Three.length() > 300) {
+//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                    return;
+//                }
+//                CasualAcquaintances ca;
+//                if (flag) {
+//                    ca = new CasualAcquaintances();
+//                } else {
+//                    ca = (CasualAcquaintances) a.get(x).get(num);
+//                }
+//                ca.setName(Name);
+//                ca.setMobileNo(Mobile);
+//                ca.setEmail(Email);
+//                ca.setWhenWhere(One);
+//                ca.setCircumstances(Two);
+//                ca.setOtherInfo(Three);
+//                if (flag) {
+//                    a.get(x).add(ca);
+//                }
                 break;
             default:
                 break;
@@ -1016,6 +1077,98 @@ public class MUI extends javax.swing.JFrame {
         jPanelMainPage.setVisible(true);
         jPanelDetailsForm.setVisible(false);
         mg.setUpTableData();
+    }
+
+    // Validate before create Acquaintance Instance
+    private boolean performOtherInformationFieldCheckingPF(String otherInformation1, String otherInformation2, String otherInformation3) {
+        if (otherInformationField1.isVisible()) {
+            if (otherInformation1.isEmpty() || otherInformation1.length() > 300) {
+                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                return false;
+            }
+        }
+
+        if (otherInformationField2.isVisible()) {
+            if (otherInformation2.isEmpty() || otherInformation2.length() > 300) {
+                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                return false;
+            }
+        }
+
+        if (otherInformationField3.isVisible()) {
+            //Not sure why original implementation need this
+//            if (otherInformation3.isEmpty() || otherInformation3.length() > 300) {
+//                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                return false;
+//            }
+            return validDate(otherInformation3);
+        }
+        return true;
+    }
+
+    private boolean performOtherInformationFieldCheckingR(String otherInformation1, String otherInformation2, String otherInformation3) {
+        if (otherInformationField1.isVisible()) {
+            //Not sure why original implementation need this
+//            if (otherInformation1.isEmpty() || otherInformation1.length() > 300) {
+//                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                return false;
+//            }
+            return validDate(otherInformation1);
+        }
+        if (otherInformationField2.isVisible()) {
+            //Not sure why original implementation need this
+//            if (otherInformation2.isEmpty() || otherInformation2.length() > 300) {
+//                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+//                return false;
+//            }
+            return validDate(otherInformation2);
+        }
+        return true;
+    }
+
+    private boolean performOtherInformationFieldCheckingPROF(String otherInformation1, String otherInformation2, String otherInformation3) {
+        if (otherInformationField1.isVisible()) {
+            if (otherInformation1.isEmpty() || otherInformation1.length() > 300) {
+                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean performOtherInformationFieldCheckingCA(String otherInformation1, String otherInformation2, String otherInformation3) {
+        if (otherInformationField1.isVisible()) {
+            if (otherInformation1.isEmpty() || otherInformation1.length() > 300) {
+                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                return false;
+            }
+        }
+
+        if (otherInformationField2.isVisible()) {
+            if (otherInformation2.isEmpty() || otherInformation2.length() > 300) {
+                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                return false;
+            }
+        }
+
+        if (otherInformationField3.isVisible()) {
+            if (otherInformation3.isEmpty() || otherInformation3.length() > 300) {
+                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Acquaintances createAcquaintancesInstance(AcquaintancesType type, String name, String mobileNo, String email, String[] othersInfoArray) {
+        return acqFactory.createAcquaintances(type, name, mobileNo, email, othersInfoArray);
+    }
+
+    private void updateAcquaintancesInstance(Acquaintances acq, String name, String mobile, String email, String[] othersInfoArray){
+        acq.setName(name);
+        acq.setMobileNo(mobile);
+        acq.setEmail(email);
+        acq.setOtherInformations(othersInfoArray);
     }
 
     private void jButtonCancleDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancleDetailsActionPerformed
