@@ -1,17 +1,26 @@
 package contactmanagementsoftware;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class ProfessionalFriends extends Acquaintances implements Serializable{
-    
-    private String CommonInterests;
+public class ProfessionalFriends extends Acquaintances implements Serializable {
+
+//    private String CommonInterests;
     public static int numberProF = 0;
     
-    ProfessionalFriends(){
+    ProfessionalFriends() {
+        super();
         numberProF++;
+        otherInformations = new PROFOtherInformations();
     }
     
+//    ProfessionalFriends(String name, String mobileNo, String email, String commonInterest) {
+//        super(name, mobileNo, email);
+//        numberProF++;
+//        otherInformations = new PROFOtherInformations(commonInterest);
+//    }
+
     @Override
     public String getName() {
         return super.getName();
@@ -19,7 +28,7 @@ public class ProfessionalFriends extends Acquaintances implements Serializable{
 
     @Override
     public void setName(String Name) {
-        super.setName(Name); 
+        super.setName(Name);
     }
 
     @Override
@@ -43,16 +52,21 @@ public class ProfessionalFriends extends Acquaintances implements Serializable{
     }
 
     public String getCommonInterests() {
-        return CommonInterests;
+        HashMap<String, String> otherInformationsHashMap = otherInformations.getOtherInformations();
+        return otherInformationsHashMap.get("CommonInterests");
     }
 
-    public void setCommonInterests(String CommonInterests) {
-        Scanner reader = new Scanner(System.in);
-        if(!CommonInterests.isEmpty())
-            this.CommonInterests = CommonInterests;
-        else{
+    @Override
+    public void setOtherInformations(String[] othersInfoArray) {
+//        Scanner reader = new Scanner(System.in);
+        String commonInterests = othersInfoArray[0];
+        if (!commonInterests.isEmpty()) {
+            HashMap<String, String> otherInformationsHashMap = new HashMap<>();
+            otherInformationsHashMap.put("CommonInterests", commonInterests);
+            otherInformations.setOtherInformations(otherInformationsHashMap);
+        } else {
             System.out.println("Enter at least one character");
-            setCommonInterests(reader.nextLine());
+//            setOtherInformations(reader.nextLine());
         }
     }
 }
