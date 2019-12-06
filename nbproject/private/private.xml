@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/D:/Files/sem7/Design%20Pattern/DP%20Assignment/design_pattern_assignment/src/contactmanagementsoftware/Manager.java</file>
-=======
             <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/Acquaintances.java</file>
->>>>>>> 2bbbed9cec1046f22b3fbe432c020eadaf0cdfe9
+
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/PROFOtherInformations.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/ContactManagementSoftware.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/SerializationUtil.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/CasualAcquaintances.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/PersonalFriends.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/MUI.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/ProfessionalFriends.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/ROtherInformations.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/DesignPatternAssignment/src/contactmanagementsoftware/Relatives.java</file>
         </group>
     </open-files>
 </project-private>
