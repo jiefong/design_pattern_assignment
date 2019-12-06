@@ -697,7 +697,8 @@ public class MUI extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             try {
-                temp = (ArrayList<ArrayList<Acquaintances>>) SerializationUtil.deserialize(selectedFile);
+                SerializationUtil util = SerializationUtil.getInstance();
+                temp = (ArrayList<ArrayList<Acquaintances>>) util.deserialize(selectedFile);
             } catch (ClassNotFoundException | IOException e) {
                 JOptionPane.showMessageDialog(mg, "Error");
                 return;
@@ -705,6 +706,7 @@ public class MUI extends javax.swing.JFrame {
         } else {
             return;
         }
+        
         try {
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < temp.get(i).size(); j++) {
@@ -712,13 +714,13 @@ public class MUI extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
-
+            return;
         }
         mg.setUpTableData();
     }
 
     private void jButtonSaveAsFileActionPerformed(java.awt.event.ActionEvent evt) {
-        String s = (String) JOptionPane.showInputDialog(
+        String fileName = (String) JOptionPane.showInputDialog(
                 mg,
                 "Enter file name: (*.ser)",
                 "Input",
@@ -726,34 +728,70 @@ public class MUI extends javax.swing.JFrame {
                 null,
                 null,
                 "output.ser");
-        if (s == null) {
-            return;
+        if(validateFileName(fileName)) return;
+        saveFile(fileName);
+//        if (fileName == null) {
+//            return;
+//        }
+//        if (!fileName.endsWith(".ser")) {
+//            JOptionPane.showMessageDialog(mg, "File name should end with .ser");
+//            return;
+//        }
+//        File[] fileList = (new File(".")).listFiles((File pathname) -> pathname.getName().endsWith(".ser"));
+//        boolean flag = false;
+//        for (File f : fileList) {
+//            if (f.getName().matches(s)) {
+//                flag = true;
+//            }
+//        }
+//        if (flag) {
+//            int q = JOptionPane.showConfirmDialog(mg, fileName + " already exists:\nAre you sure you want to overwrite?");
+//            if (q != 0) {
+//                return;
+//            }
+//        }
+//        try {
+//            SerializationUtil util = SerializationUtil.getInstance();
+//            util.serialize(a, fileName);
+//        } catch (IOException e) {
+//            return;
+//        }
+//        JOptionPane.showMessageDialog(mg, fileName + " saved successfully");
+        
+    }
+
+    private boolean validateFileName(String fileName) {
+        if (fileName == null) {
+            return false;
         }
-        if (!s.endsWith(".ser")) {
+        if (!fileName.endsWith(".ser")) {
             JOptionPane.showMessageDialog(mg, "File name should end with .ser");
-            return;
+            return false;
         }
         File[] fileList = (new File(".")).listFiles((File pathname) -> pathname.getName().endsWith(".ser"));
-        boolean flag = false;
         for (File f : fileList) {
-            if (f.getName().matches(s)) {
-                flag = true;
+            if (f.getName().matches(fileName)) {
+                int q = JOptionPane.showConfirmDialog(mg, fileName + " already exists:\nAre you sure you want to overwrite?");
+                if (q != 0) {
+                    return false;
+                }else{
+                    return true;
+                }
             }
         }
-        if (flag) {
-            int q = JOptionPane.showConfirmDialog(mg, s + " already exists:\nAre you sure you want to overwrite?");
-            if (q != 0) {
-                return;
-            }
-        }
+        return true;
+    }
+    
+    private void saveFile(String fileName){
         try {
-            SerializationUtil.serialize(a, s);
+            SerializationUtil util = SerializationUtil.getInstance();
+            util.serialize(a, fileName);
         } catch (IOException e) {
             return;
         }
-        JOptionPane.showMessageDialog(mg, s + " saved successfully");
+        JOptionPane.showMessageDialog(mg, fileName + " saved successfully");
     }
-
+    
     private void jButtonBackToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackToMainMenuActionPerformed
         jPanelSearchResult.setVisible(false);
         jPanelMainPage.setVisible(true);
@@ -1064,7 +1102,7 @@ public class MUI extends javax.swing.JFrame {
         return acqFactory.createAcquaintances(type, name, mobileNo, email, othersInfoArray);
     }
 
-    private void updateAcquaintancesInstance(Acquaintances acq, String name, String mobile, String email, String[] othersInfoArray){
+    private void updateAcquaintancesInstance(Acquaintances acq, String name, String mobile, String email, String[] othersInfoArray) {
         acq.setName(name);
         acq.setMobileNo(mobile);
         acq.setEmail(email);
@@ -1317,8 +1355,8 @@ public class MUI extends javax.swing.JFrame {
     public int getNum() {
         return num;
     }
-    
-    public int getX(){
+
+    public int getX() {
         return x;
     }
 }
