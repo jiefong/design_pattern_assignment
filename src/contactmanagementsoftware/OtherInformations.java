@@ -5,13 +5,14 @@
  */
 package contactmanagementsoftware;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  *
  * @author Leanne
  */
-public interface OtherInformations{
+public interface OtherInformations extends Serializable{
     public HashMap<String,String> getOtherInformations();
     public void setOtherInformations(HashMap<String,String> newOtherInformations);
 }

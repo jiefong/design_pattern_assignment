@@ -1,9 +1,8 @@
 package contactmanagementsoftware;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ContactManagementSoftware implements Serializable {
+public class ContactManagementSoftware{
 
     private static MUI mg;
 //    private static ArrayList<ArrayList<Acquaintances>> a = new ArrayList<>();

@@ -1,10 +1,9 @@
 package contactmanagementsoftware;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class CasualAcquaintances extends Acquaintances implements Serializable {
+public class CasualAcquaintances extends Acquaintances{
 //    private String WhenWhere;
 //    private String Circumstances;
 //    private String OtherInfo;
