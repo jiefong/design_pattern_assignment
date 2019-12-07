@@ -1,11 +1,9 @@
 package contactmanagementsoftware;
 
-import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class PersonalFriends extends Acquaintances implements Serializable {
+public class PersonalFriends extends Acquaintances {
 //    private String AContext;
 //    private String ADate;
 //    private String Events;

@@ -1,7 +1,6 @@
 package contactmanagementsoftware;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Scanner;
 
 //public class Acquaintances implements Serializable{
@@ -36,7 +35,7 @@ import java.util.Scanner;
 //        return Email;
 //    }
 //    
-//    public boolean MobileNoChecker(String str)
+//    public boolean mobileNoChecker(String str)
 //    {
 //        int x;
 //        for(int j = 0 ; j < str.length() ; j++)
@@ -51,7 +50,7 @@ import java.util.Scanner;
 //    
 //    public void setMobileNo(String MobileNo){
 //        Scanner reader = new Scanner(System.in);
-//        if(MobileNoChecker(MobileNo) && MobileNo.length()>=6 && MobileNo.length()<=15)
+//        if(mobileNoChecker(MobileNo) && MobileNo.length()>=6 && MobileNo.length()<=15)
 //            this.MobileNo = MobileNo;
 //        else{
 //            System.out.print("Enter a valid Mobile No of length between 6 and 15 (inclusive): ");
@@ -111,7 +110,7 @@ public abstract class Acquaintances implements Serializable, AcquaintancesSystem
         return email;
     }
     
-    public boolean MobileNoChecker(String str)
+    public boolean mobileNoChecker(String str)
     {
         int x;
         for(int j = 0 ; j < str.length() ; j++)
@@ -124,20 +123,20 @@ public abstract class Acquaintances implements Serializable, AcquaintancesSystem
     }
     
     
-    public void setMobileNo(String MobileNo){
+    public void setMobileNo(String mobileNo){
         Scanner reader = new Scanner(System.in);
-        if(MobileNoChecker(MobileNo) && MobileNo.length()>=6 && MobileNo.length()<=15)
-            this.mobileNo = MobileNo;
+        if(mobileNoChecker(mobileNo) && mobileNo.length()>=6 && mobileNo.length()<=15)
+            this.mobileNo = mobileNo;
         else{
             System.out.print("Enter a valid Mobile No of length between 6 and 15 (inclusive): ");
             setMobileNo(reader.next());
         }
     }
     
-    public void setEmail(String Email){
+    public void setEmail(String email){
         Scanner reader = new Scanner(System.in);
-        if(Email.contains("@"))
-            this.email = Email;
+        if(email.contains("@"))
+            this.email = email;
         else{
             System.out.print("Enter a valid Email: ");
             this.setEmail(reader.next());

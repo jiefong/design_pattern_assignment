@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class ProfessionalFriends extends Acquaintances implements Serializable {
+public class ProfessionalFriends extends Acquaintances {
 
 //    private String CommonInterests;
     public static int numberProF = 0;
