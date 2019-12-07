@@ -364,7 +364,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabelOtherInformation3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8OtherInformation2" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelOtherInformation2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelOtherInformation1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelEmail" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelMobile" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -415,7 +415,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                          <Component id="jLabel8OtherInformation2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelOtherInformation2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -458,7 +458,7 @@
             <Property name="text" type="java.lang.String" value="First meeting time &amp; location:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8OtherInformation2">
+        <Component class="javax.swing.JLabel" name="jLabelOtherInformation2">
           <Properties>
             <Property name="text" type="java.lang.String" value="First meeting CIrcumstances:"/>
           </Properties>

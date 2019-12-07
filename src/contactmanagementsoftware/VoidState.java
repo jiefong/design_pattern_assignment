@@ -16,33 +16,23 @@ public class VoidState extends PanelState {
     }
 
     @Override
-    public void setDescription() {
-        mui.getNameField().setEditable(false);
-        mui.getMobileField().setEditable(false);
-        mui.getEmailField().setEditable(false);
-        mui.getOtherInformationField1().setEditable(false);
-        mui.getOtherInformationField2().setEditable(false);
-        mui.getOtherInformationField3().setEditable(false);
+    void setFormFieldEditable() {
+        setFormFieldEditable(false);
+    }
 
-        mui.getNameField().setText("");
-        mui.getMobileField().setText("");
-        mui.getEmailField().setText("");
-        mui.getOtherInformationField1().setText("");
-        mui.getOtherInformationField2().setText("");
-        mui.getOtherInformationField3().setText("");
-        
-        mui.getJButtonConfirmDetails().setText("");
+    @Override
+    void setPanelTitle() {
+        setPanelTitle("");
+    }
+
+    @Override
+    void setConfirmButton() {
         mui.getJButtonConfirmDetails().setVisible(false);
+    }
 
-        mui.getJButtonCancleDetails().setVisible(true);
-
-        mui.getJLabelOtherInformation1().setText("");
-        mui.getJLabel8OtherInformation2().setText("");
-        mui.getJLabelOtherInformation3().setText("");
-
-        mui.getJLabelOtherInformation1().setVisible(false);
-        mui.getJLabel8OtherInformation2().setVisible(false);
-        mui.getJLabelOtherInformation3().setVisible(false);
+    @Override
+    void setCancelButton() {
+        mui.getJButtonCancleDetails().setVisible(false);
     }
 
 }

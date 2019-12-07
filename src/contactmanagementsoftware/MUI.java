@@ -67,21 +67,6 @@ public class MUI extends javax.swing.JFrame {
         this.ac = ac;
     }
 
-    private void setFormFieldEditable(boolean b) {
-        nameField.setEditable(b);
-        mobileField.setEditable(b);
-        emailField.setEditable(b);
-        otherInformationField1.setEditable(b);
-        otherInformationField2.setEditable(b);
-        otherInformationField3.setEditable(b);
-    }
-
-    private void setFormFieldVisibility(boolean bOtherInformationField1, boolean bOtherInformationField2, boolean bOtherInformationField3) {
-        otherInformationField1.setVisible(bOtherInformationField1);
-        otherInformationField2.setVisible(bOtherInformationField2);
-        otherInformationField3.setVisible(bOtherInformationField3);
-    }
-
     public void setDescription() {
         currentPanelState.setDescription();
     }
@@ -159,7 +144,7 @@ public class MUI extends javax.swing.JFrame {
         jLabelMobile = new javax.swing.JLabel();
         jLabelEmail = new javax.swing.JLabel();
         jLabelOtherInformation1 = new javax.swing.JLabel();
-        jLabel8OtherInformation2 = new javax.swing.JLabel();
+        jLabelOtherInformation2 = new javax.swing.JLabel();
         jLabelOtherInformation3 = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
@@ -411,7 +396,7 @@ public class MUI extends javax.swing.JFrame {
 
         jLabelOtherInformation1.setText("First meeting time & location:");
 
-        jLabel8OtherInformation2.setText("First meeting CIrcumstances:");
+        jLabelOtherInformation2.setText("First meeting CIrcumstances:");
 
         jLabelOtherInformation3.setText("Other useful information:");
 
@@ -456,7 +441,7 @@ public class MUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelDetailsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelOtherInformation3)
-                    .addComponent(jLabel8OtherInformation2)
+                    .addComponent(jLabelOtherInformation2)
                     .addComponent(jLabelOtherInformation1)
                     .addComponent(jLabelEmail)
                     .addComponent(jLabelMobile)
@@ -498,7 +483,7 @@ public class MUI extends javax.swing.JFrame {
                 .addGroup(jPanelDetailsFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDetailsFormLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
-                        .addComponent(jLabel8OtherInformation2))
+                        .addComponent(jLabelOtherInformation2))
                     .addGroup(jPanelDetailsFormLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1090,12 +1075,12 @@ public class MUI extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSaveAsFile;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonViewFullDetail;
-    private javax.swing.JLabel jLabel8OtherInformation2;
     private javax.swing.JLabel jLabelDetailsTableTitle;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelMobile;
     private javax.swing.JLabel jLabelName;
     private javax.swing.JLabel jLabelOtherInformation1;
+    private javax.swing.JLabel jLabelOtherInformation2;
     private javax.swing.JLabel jLabelOtherInformation3;
     private javax.swing.JLabel jLabelSelectCategoryTitle;
     private javax.swing.JLabel jLabelSystemName;
@@ -1170,8 +1155,8 @@ public class MUI extends javax.swing.JFrame {
         return jButtonViewFullDetail;
     }
 
-    public JLabel getJLabel8OtherInformation2() {
-        return jLabel8OtherInformation2;
+    public JLabel getJLabelOtherInformation2() {
+        return jLabelOtherInformation2;
     }
 
     public JLabel getJLabelDetailsTableTitle() {
@@ -1238,7 +1223,7 @@ public class MUI extends javax.swing.JFrame {
         return jScrollPane5;
     }
 
-    public JScrollPane getJScrollPane16() {
+    public JScrollPane getJScrollPane6() {
         return jScrollPane6;
     }
 

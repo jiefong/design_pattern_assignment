@@ -12,12 +12,12 @@ import java.util.HashMap;
  *
  * @author jiefo
  */
-public class AcquaintancesList implements AcquaintancesSystem {
+public class AcquaintancesListComposite implements AcquaintancesSystem {
 
     ArrayList<AcquaintancesSystem> acquaintanceList;
     String name;
 
-    public AcquaintancesList(String name) {
+    public AcquaintancesListComposite(String name) {
         this.name = name;
         acquaintanceList = new ArrayList();
         String[] arr = {"abc", "123"};
