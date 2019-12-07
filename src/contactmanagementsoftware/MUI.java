@@ -37,6 +37,8 @@ public class MUI extends javax.swing.JFrame {
      */
     private MUI mg;
     private ArrayList<ArrayList<Acquaintances>> a;
+    private AcquaintancesSystem ac;
+
     private ArrayList<ArrayList<Acquaintances>> temp;
     private int x;
     private int num;
@@ -59,6 +61,10 @@ public class MUI extends javax.swing.JFrame {
 
     public void setA(ArrayList<ArrayList<Acquaintances>> a) {
         this.a = a;
+    }
+
+    public void setAc(AcquaintancesSystem ac) {
+        this.ac = ac;
     }
 
     private void setFormFieldEditable(boolean b) {
@@ -99,18 +105,20 @@ public class MUI extends javax.swing.JFrame {
     public final void setUpTableData() {
         DefaultTableModel tableModel = (DefaultTableModel) jXTableDetialsDisplay.getModel();
         tableModel.setRowCount(0);
-        ArrayList<Acquaintances> list;
+        ArrayList<AcquaintancesSystem> acList;
         try {
-            list = a.get(jListAcquaintancesCatagory.getSelectedIndex());
+            acList = ac.getAcquaintances(jListAcquaintancesCatagory.getSelectedIndex()).getChild();
         } catch (Exception e) {
             return;
         }
-        for (int i = 0; i < list.size(); i++) {
+
+        for (int i = 0; i < acList.size(); i++) {
             String[] data = new String[4];
+            HashMap<String, String> acqData = acList.get(i).getInformation();
             data[0] = Integer.toString(i + 1);
-            data[1] = list.get(i).getName();
-            data[2] = list.get(i).getMobileNo();
-            data[3] = list.get(i).getEmail();
+            data[1] = acqData.get("Name");
+            data[2] = acqData.get("Mobile");
+            data[3] = acqData.get("Email");
             tableModel.addRow(data);
         }
         jXTableDetialsDisplay.setModel(tableModel);
@@ -543,7 +551,8 @@ public class MUI extends javax.swing.JFrame {
                 "Confirm",
                 JOptionPane.YES_NO_OPTION);
         if (n == 0) {
-            a.get(index).remove(tindex);
+            ac.getAcquaintances(index).removeAcquaintances(tindex);
+//            a.get(index).remove(tindex);
             JOptionPane.showMessageDialog(mg, "Successfully Deleted");
             mg.setUpTableData();
         }
@@ -617,67 +626,31 @@ public class MUI extends javax.swing.JFrame {
 
     public void runn() {
         String s = "<html> <b>Search results:</b><br>Found!<br><br>Acquaintance Details: <br>";
-        int j = 0;
-        for (int i = 0; i < a.get(0).size(); i++) {
-            if (a.get(0).get(i).getName().matches(str)) {
-                j++;
-                PersonalFriends perF = (PersonalFriends) a.get(0).get(i);
-                if (j == 1) {
-                    s = s.concat("<br>I. Personal Friends<br>");
+        for (int i = 0; i < ac.getChild().size(); i++) {
+            ArrayList<AcquaintancesSystem> acList = ac.getAcquaintances(i).getChild();
+            int count = 0;
+            for (int j = 0; j < acList.size(); j++) {
+                if (acList.get(j).getInformation().get("Name").matches(str)) {
+                    count++;
+                    if (count == 1) {
+                        s = s.concat("<br>" + ac.getAcquaintances(i).getInformation().get("Name") + "<br>");
+                    }
+                    s = s.concat("Name: " + acList.get(j).getInformation().get("Name") + "<br>");
+                    s = s.concat("Mobile No: " + acList.get(j).getInformation().get("Mobile") + "<br>");
+                    s = s.concat("Email: " + acList.get(j).getInformation().get("Email") + "<br>");
+
+                    try {
+                        HashMap<String, String> otherInfo = acList.get(j).getOtherInformation();
+                        for (String key : otherInfo.keySet()) {
+                            s = s.concat(key + ": " + acList.get(j).getOtherInformation().get(key) + "<br>");
+                        }
+                    } catch (Exception e) {
+                    }
+                    s.concat("<br>");
                 }
-                s = s.concat(j + ". Name: " + perF.getName() + "<br>");
-                s = s.concat("Mobile No: " + perF.getMobileNo() + "<br>");
-                s = s.concat("Email: " + perF.getEmail() + "<br>");
-                s = s.concat("Specific events: " + perF.getEvents() + "<br>");
-                s = s.concat("First Acquaintance context: " + perF.getAContext() + "<br>");
-                s = s.concat("First Acquaintance date: " + perF.getADate() + "<br>");
             }
         }
-        j = 0;
-        for (int i = 0; i < a.get(1).size(); i++) {
-            if (a.get(1).get(i).getName().matches(str)) {
-                j++;
-                Relatives rel = (Relatives) a.get(1).get(i);
-                if (j == 1) {
-                    s = s.concat("<br>II. Relatives<br>");
-                }
-                s = s.concat(j + ". Name: " + rel.getName() + "<br>");
-                s = s.concat("Mobile No: " + rel.getMobileNo() + "<br>");
-                s = s.concat("Email: " + rel.getEmail() + "<br>");
-                s = s.concat("Relatives Birthday: " + rel.getBDate() + "<br>");
-                s = s.concat("Last met date: " + rel.getLDate() + "<br>");
-            }
-        }
-        j = 0;
-        for (int i = 0; i < a.get(2).size(); i++) {
-            if (a.get(2).get(i).getName().matches(str)) {
-                j++;
-                ProfessionalFriends proF = (ProfessionalFriends) a.get(2).get(i);
-                if (j == 1) {
-                    s = s.concat("<br>III. Professional Friends<br>");
-                }
-                s = s.concat(j + ". Name: " + proF.getName() + "<br>");
-                s = s.concat("Mobile No: " + proF.getMobileNo() + "<br>");
-                s = s.concat("Email: " + proF.getEmail() + "<br>");
-                s = s.concat("Common Interests: " + proF.getCommonInterests() + "<br>");
-            }
-        }
-        j = 0;
-        for (int i = 0; i < a.get(3).size(); i++) {
-            if (a.get(3).get(i).getName().matches(str)) {
-                j++;
-                CasualAcquaintances ca = (CasualAcquaintances) a.get(3).get(i);
-                if (j == 1) {
-                    s = s.concat("<br>IV. Casual Acquaintances<br>");
-                }
-                s = s.concat(j + ". Name: " + ca.getName() + "<br>");
-                s = s.concat("Mobile No: " + ca.getMobileNo() + "<br>");
-                s = s.concat("Email: " + ca.getEmail() + "<br>");
-                s = s.concat("First met location & time: " + ca.getWhenWhere() + "<br>");
-                s = s.concat("First met circumstances: " + ca.getCircumstances() + "<br>");
-                s = s.concat("Other useful information: " + ca.getOtherInfo() + "<br>");
-            }
-        }
+
         if (s.matches("<html> <b>Search results:</b><br>Found!<br><br>Acquaintance Details: <br>")) {
             s = "<html>No result found</html>";
         } else {
@@ -817,45 +790,12 @@ public class MUI extends javax.swing.JFrame {
                 }
                 if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.PF, name, mobile, email, otherInfoArray);
-                    a.get(x).add(acq);
+                    ac.getAcquaintances(x).addAcquaintances(acq);
+//                    a.get(x).add(acq);
                 } else {
-                    acq = a.get(x).get(num);
+                    acq = (Acquaintances) ac.getAcquaintances(x).getAcquaintances(num);
                     updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
-//                One = otherInformationField1.getText();
-//                if (One.isEmpty() || One.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                Two = otherInformationField2.getText();
-//                if (Two.isEmpty() || Two.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                Three = otherInformationField3.getText();
-//                if (!validDate(Three)) {
-//                    return;
-//                }
-//                if (Three.isEmpty() || Three.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                PersonalFriends perF;
-
-//                if (flag) {
-//                    perF = new PersonalFriends();
-//                } else {
-//                    perF = (PersonalFriends) a.get(x).get(num);
-//                }
-//                perF.setName(Name);
-//                perF.setMobileNo(Mobile);
-//                perF.setEmail(Email);
-//                perF.setEvents(One);
-//                perF.setAContext(Two);
-//                perF.setADate(Three);
-//                if (flag) {
-//                    a.get(x).add(perF);
-//                }
                 break;
             case 1: //rel
                 if (!performOtherInformationFieldCheckingR(otherInformation1, otherInformation2, otherInformation3)) {
@@ -863,41 +803,13 @@ public class MUI extends javax.swing.JFrame {
                 }
                 if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.R, name, mobile, email, otherInfoArray);
-                    a.get(x).add(acq);
+                    ac.getAcquaintances(x).addAcquaintances(acq);
+//                    a.get(x).add(acq);
                 } else {
-                    acq = a.get(x).get(num);
+//                    acq = a.get(x).get(num);
+                    acq = (Acquaintances) ac.getAcquaintances(x).getAcquaintances(num);
                     updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
-//                One = otherInformationField1.getText();
-//                if (One.isEmpty() || One.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                if (!validDate(One)) {
-//                    return;
-//                }
-//                Two = otherInformationField2.getText();
-//                if (Two.isEmpty() || Two.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                if (!validDate(Two)) {
-//                    return;
-//                }
-//                Relatives rel;
-//                if (flag) {
-//                    rel = new Relatives();
-//                } else {
-//                    rel = (Relatives) a.get(x).get(num);
-//                }
-//                rel.setName(Name);
-//                rel.setMobileNo(Mobile);
-//                rel.setEmail(Email);
-//                rel.setBDate(One);
-//                rel.setLDate(Two);
-//                if (flag) {
-//                    a.get(x).add(rel);
-//                }
                 break;
             case 2: //proF
                 if (!performOtherInformationFieldCheckingPROF(otherInformation1, otherInformation2, otherInformation3)) {
@@ -905,24 +817,14 @@ public class MUI extends javax.swing.JFrame {
                 }
                 if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.PROF, name, mobile, email, otherInfoArray);
-                    a.get(x).add(acq);
+//                    a.get(x).add(acq);
+                    ac.getAcquaintances(x).addAcquaintances(acq);
+
                 } else {
-                    acq = a.get(x).get(num);
+//                    acq = a.get(x).get(num);
+                    acq = (Acquaintances) ac.getAcquaintances(x).getAcquaintances(num);
                     updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
-//                One = otherInformationField1.getText();
-//                if (One.isEmpty() || One.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                ProfessionalFriends proF;
-//                proF.setName(Name);
-//                proF.setMobileNo(Mobile);
-//                proF.setEmail(Email);
-//                proF.setCommonInterest(One);
-//                if (flag) {
-//                    a.get(x).add(proF);
-//                }
                 break;
             case 3: //ca
                 if (!performOtherInformationFieldCheckingCA(otherInformation1, otherInformation2, otherInformation3)) {
@@ -930,41 +832,14 @@ public class MUI extends javax.swing.JFrame {
                 }
                 if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.CA, name, mobile, email, otherInfoArray);
-                    a.get(x).add(acq);
+//                    a.get(x).add(acq);
+                    ac.getAcquaintances(x).addAcquaintances(acq);
+
                 } else {
-                    acq = a.get(x).get(num);
+//                    acq = a.get(x).get(num);
+                    acq = (Acquaintances) ac.getAcquaintances(x).getAcquaintances(num);
                     updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
-//                One = otherInformationField1.getText();
-//                if (One.isEmpty() || One.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                Two = otherInformationField2.getText();
-//                if (Two.isEmpty() || Two.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                Three = otherInformationField3.getText();
-//                if (Three.isEmpty() || Three.length() > 300) {
-//                    JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                    return;
-//                }
-//                CasualAcquaintances ca;
-//                if (flag) {
-//                    ca = new CasualAcquaintances();
-//                } else {
-//                    ca = (CasualAcquaintances) a.get(x).get(num);
-//                }
-//                ca.setName(Name);
-//                ca.setMobileNo(Mobile);
-//                ca.setEmail(Email);
-//                ca.setWhenWhere(One);
-//                ca.setCircumstances(Two);
-//                ca.setOtherInfo(Three);
-//                if (flag) {
-//                    a.get(x).add(ca);
-//                }
                 break;
             default:
                 break;
@@ -1061,7 +936,7 @@ public class MUI extends javax.swing.JFrame {
         return acqFactory.createAcquaintances(type, name, mobileNo, email, othersInfoArray);
     }
 
-    private void updateAcquaintancesInstance(Acquaintances acq, String name, String mobile, String email, String[] othersInfoArray){
+    private void updateAcquaintancesInstance(Acquaintances acq, String name, String mobile, String email, String[] othersInfoArray) {
         acq.setName(name);
         acq.setMobileNo(mobile);
         acq.setEmail(email);
@@ -1312,20 +1187,24 @@ public class MUI extends javax.swing.JFrame {
     public ArrayList<ArrayList<Acquaintances>> getA() {
         return a;
     }
+    
+    public AcquaintancesSystem getAc(){
+        return ac;
+    }
 
     public int getNum() {
         return num;
     }
-    
-    public int getX(){
+
+    public int getX() {
         return x;
     }
-    
-    public void setPanelState(PanelState state){
+
+    public void setPanelState(PanelState state) {
         currentPanelState = state;
     }
-    
-    public PanelState getPanelState(){
+
+    public PanelState getPanelState() {
         return currentPanelState;
     }
 }

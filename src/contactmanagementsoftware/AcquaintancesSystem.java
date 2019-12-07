@@ -5,10 +5,18 @@
  */
 package contactmanagementsoftware;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  *
  * @author jiefo
  */
 public interface AcquaintancesSystem {
-    
+    public void addAcquaintances(AcquaintancesSystem acquaintances);
+    public void removeAcquaintances(int position);
+    public AcquaintancesSystem getAcquaintances(int position);
+    public ArrayList<AcquaintancesSystem> getChild();
+    public HashMap<String, String> getInformation();
+    public HashMap<String, String> getOtherInformation();
 }

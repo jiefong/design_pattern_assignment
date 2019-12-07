@@ -28,7 +28,7 @@ public class EditState extends PanelState {
         mui.getJButtonConfirmDetails().setVisible(true);
         mui.getJButtonCancleDetails().setVisible(true);
 
-        Acquaintances e = mui.getA().get(mui.getX()).get(mui.getNum());
+        Acquaintances e = (Acquaintances) mui.getAc().getAcquaintances(mui.getX()).getAcquaintances(mui.getNum());
         mui.getNameField().setText(e.getName());
         mui.getMobileField().setText(e.getMobileNo());
         mui.getEmailField().setText(e.getEmail());

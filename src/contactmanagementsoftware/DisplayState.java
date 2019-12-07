@@ -23,12 +23,14 @@ public class DisplayState extends PanelState {
         mui.getOtherInformationField1().setEditable(false);
         mui.getOtherInformationField2().setEditable(false);
         mui.getOtherInformationField3().setEditable(false);
-        
+
         mui.getJButtonConfirmDetails().setText("Back to main menu");
+        mui.getJButtonConfirmDetails().setVisible(true);
+
         mui.getJButtonCancleDetails().setVisible(false);
         mui.getJPanelDetailsForm().setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Display Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16)));
-        
-        Acquaintances e = mui.getA().get(mui.getX()).get(mui.getNum());
+
+        Acquaintances e = (Acquaintances) mui.getAc().getAcquaintances(mui.getX()).getAcquaintances(mui.getNum());
         mui.getNameField().setText(e.getName());
         mui.getMobileField().setText(e.getMobileNo());
         mui.getEmailField().setText(e.getEmail());
@@ -59,7 +61,7 @@ public class DisplayState extends PanelState {
             default:
                 break;
         }
-        
+
         switch (mui.getX()) {
             case 0:
                 mui.getOtherInformationField2().setVisible(true);
