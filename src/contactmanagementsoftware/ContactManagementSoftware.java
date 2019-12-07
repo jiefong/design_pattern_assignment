@@ -11,11 +11,11 @@ public class ContactManagementSoftware{
 //    private static ArrayList<Acquaintances> proF1 = new ArrayList<>();
 //    private static ArrayList<Acquaintances> ca1 = new ArrayList<>();
 
-    private static AcquaintancesSystem ac = new AcquaintancesListComposite("master");
-    private static AcquaintancesSystem perF1 = new AcquaintancesListComposite("Personal Friends");
-    private static AcquaintancesSystem rel1 = new AcquaintancesListComposite("Relatives");
-    private static AcquaintancesSystem proF1 = new AcquaintancesListComposite("Professional Friends");
-    private static AcquaintancesSystem ca1 = new AcquaintancesListComposite("Casual Acquaintance");
+    private static AcquaintancesSystem ac = new AcquaintancesList("master");
+    private static AcquaintancesSystem perF1 = new AcquaintancesList("Personal Friends");
+    private static AcquaintancesSystem rel1 = new AcquaintancesList("Relatives");
+    private static AcquaintancesSystem proF1 = new AcquaintancesList("Professional Friends");
+    private static AcquaintancesSystem ca1 = new AcquaintancesList("Casual Acquaintance");
 
     public static void main(String[] args) {
         mg = new MUI();

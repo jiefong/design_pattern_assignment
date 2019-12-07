@@ -5,6 +5,7 @@
  */
 package contactmanagementsoftware;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,12 +13,14 @@ import java.util.HashMap;
  *
  * @author jiefo
  */
-public class AcquaintancesListComposite implements AcquaintancesSystem {
+
+
+public class AcquaintancesList implements AcquaintancesSystem, Serializable {
 
     ArrayList<AcquaintancesSystem> acquaintanceList;
     String name;
 
-    public AcquaintancesListComposite(String name) {
+    public AcquaintancesList(String name) {
         this.name = name;
         acquaintanceList = new ArrayList();
         String[] arr = {"abc", "123"};

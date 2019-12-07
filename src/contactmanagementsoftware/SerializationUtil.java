@@ -44,28 +44,3 @@ public class SerializationUtil implements Serializable {
         System.out.println("Done writing object");
     }
 }
-
-//public class SerializationUtil implements Serializable{
-// 
-//    public static Object deserialize(File file) throws IOException,
-//            ClassNotFoundException {
-//        System.out.println("I m in the method");
-//        FileInputStream fis = new FileInputStream(file);
-//        ObjectInputStream ois = new ObjectInputStream(fis);
-//        Object obj = ois.readObject();
-//        ois.close();
-//        System.out.println("I m in the method before return");
-//        return obj;
-//    }
-// 
-//    // serialize the given object and save it to file
-//    public static void serialize(Object obj, String fileName)
-//            throws IOException {
-//        FileOutputStream fos = new FileOutputStream(fileName);
-//        ObjectOutputStream oos = new ObjectOutputStream(fos);
-//        oos.writeObject(obj);
-// 
-//        fos.close();
-//    }
-// 
-//}

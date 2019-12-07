@@ -39,7 +39,7 @@ public class MUI extends javax.swing.JFrame {
     private ArrayList<ArrayList<Acquaintances>> a;
     private AcquaintancesSystem ac;
 
-    private ArrayList<ArrayList<Acquaintances>> temp;
+    private AcquaintancesSystem temp;
     private int x;
     private int num;
 
@@ -645,38 +645,6 @@ public class MUI extends javax.swing.JFrame {
     }
 
     private void jButtonReadFromFileActionPerformed(java.awt.event.ActionEvent evt) {
-//        JFileChooser fileChooser = new JFileChooser();
-//        fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-//        int result = fileChooser.showOpenDialog(this);
-//        if (result == JFileChooser.APPROVE_OPTION) {
-//            File selectedFile = fileChooser.getSelectedFile();
-//            try {
-//                System.out.println("Trying to deserialize :");
-//                temp = (ArrayList<ArrayList<Acquaintances>>)SerializationUtil.deserialize(selectedFile);
-//            }
-//            catch (ClassNotFoundException | IOException e) {
-//                System.out.println("What is this error? :" + e);
-//                JOptionPane.showMessageDialog(mg, "Error");
-//                return;
-//            }
-//        }
-//        else{
-//            System.out.println("result not approve_option");
-//            return;
-//        }
-//        try{
-//            for(int i = 0; i < 4; i++){
-//                for(int j = 0; j < temp.get(i).size(); j++){
-//                    a.get(i).add(temp.get(i).get(j));
-//                    System.out.println("ADDING");
-//                }
-//            }
-//        }
-//        catch(Exception e){
-//            System.out.println("Happen will add into array list");
-//            System.out.println(e);
-//        }
-//        mg.setUpTableData();
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
         int result = fileChooser.showOpenDialog(this);
@@ -685,9 +653,8 @@ public class MUI extends javax.swing.JFrame {
             try {
                 System.out.println("Trying to deserialize :");
                 SerializationUtil util = SerializationUtil.getInstance();
-                temp = (ArrayList<ArrayList<Acquaintances>>) util.deserialize(selectedFile);
+                temp = (AcquaintancesList) util.deserialize(selectedFile);
                 System.out.println("Done deserialize");
-//                temp = (ArrayList<ArrayList<Acquaintances>>) SerializationUtil.deserialize(selectedFile);
             } catch (ClassNotFoundException | IOException e) {
                 System.out.println("Error: " + e);
                 JOptionPane.showMessageDialog(mg, "Error");
@@ -700,8 +667,9 @@ public class MUI extends javax.swing.JFrame {
 
         try {
             for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < temp.get(i).size(); j++) {
-                    a.get(i).add(temp.get(i).get(j));
+                ArrayList<AcquaintancesSystem> acList = temp.getChild();
+                for (int j = 0; j < acList.get(i).getChild().size(); j++) {
+                    ac.getAcquaintances(i).addAcquaintances(temp.getAcquaintances(i).getAcquaintances(j));
                 }
             }
         } catch (Exception e) {
@@ -724,40 +692,6 @@ public class MUI extends javax.swing.JFrame {
         }
         System.out.println("Calling saveFile");
         saveFile(fileName);
-//        String s = (String)JOptionPane.showInputDialog(
-//            mg,
-//            "Enter file name: (*.ser)",
-//            "Input",
-//            JOptionPane.PLAIN_MESSAGE,
-//            null,
-//            null,
-//            "output.ser");
-//        if(s==null)
-//            return;
-//        if(!(s.endsWith(".ser"))){
-//            JOptionPane.showMessageDialog(mg, "File name should end with .ser");
-//            return;
-//        }
-//        File[] fileList = (new File(".")).listFiles((File pathname) -> pathname.getName().endsWith(".ser"));
-//        boolean flag = false;
-//        for(File f : fileList){
-//            if(f.getName().matches(s)){
-//                flag = true;
-//            }
-//        }
-//        if(flag){
-//            int q = JOptionPane.showConfirmDialog(mg, s + " already exists:\nAre you sure you want to overwrite?");
-//            if(q!=0)
-//            return;
-//        }
-//        try {
-//            SerializationUtil.serialize(a, s);
-//        } catch (IOException e) {
-//            System.out.println(e.toString());
-//            return;
-//        }
-//        JOptionPane.showMessageDialog(mg, s + " saved successfully");
-
     }
 
     private boolean validateFileName(String fileName) {
@@ -788,7 +722,7 @@ public class MUI extends javax.swing.JFrame {
         try {
             System.out.println("Try to Save");
             SerializationUtil util = SerializationUtil.getInstance();
-            util.serialize(a, fileName);
+            util.serialize(ac, fileName);
 //            SerializationUtil.serialize(a, fileName);
             System.out.println("Save sucessfully");
         } catch (IOException e) {
@@ -866,7 +800,6 @@ public class MUI extends javax.swing.JFrame {
                 if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.PF, name, mobile, email, otherInfoArray);
                     ac.getAcquaintances(x).addAcquaintances(acq);
-//                    a.get(x).add(acq);
                 } else {
                     acq = (Acquaintances) ac.getAcquaintances(x).getAcquaintances(num);
                     updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
@@ -892,11 +825,9 @@ public class MUI extends javax.swing.JFrame {
                 }
                 if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.PROF, name, mobile, email, otherInfoArray);
-//                    a.get(x).add(acq);
                     ac.getAcquaintances(x).addAcquaintances(acq);
 
                 } else {
-//                    acq = a.get(x).get(num);
                     acq = (Acquaintances) ac.getAcquaintances(x).getAcquaintances(num);
                     updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
@@ -907,11 +838,9 @@ public class MUI extends javax.swing.JFrame {
                 }
                 if (getPanelState() instanceof AddState) {
                     acq = createAcquaintancesInstance(AcquaintancesType.CA, name, mobile, email, otherInfoArray);
-//                    a.get(x).add(acq);
                     ac.getAcquaintances(x).addAcquaintances(acq);
 
                 } else {
-//                    acq = a.get(x).get(num);
                     acq = (Acquaintances) ac.getAcquaintances(x).getAcquaintances(num);
                     updateAcquaintancesInstance(acq, name, mobile, email, otherInfoArray);
                 }
@@ -943,11 +872,6 @@ public class MUI extends javax.swing.JFrame {
         }
 
         if (otherInformationField3.isVisible()) {
-            //Not sure why original implementation need this
-//            if (otherInformation3.isEmpty() || otherInformation3.length() > 300) {
-//                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                return false;
-//            }
             return validDate(otherInformation3);
         }
         return true;
@@ -955,19 +879,9 @@ public class MUI extends javax.swing.JFrame {
 
     private boolean performOtherInformationFieldCheckingR(String otherInformation1, String otherInformation2, String otherInformation3) {
         if (otherInformationField1.isVisible()) {
-            //Not sure why original implementation need this
-//            if (otherInformation1.isEmpty() || otherInformation1.length() > 300) {
-//                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                return false;
-//            }
             return validDate(otherInformation1);
         }
         if (otherInformationField2.isVisible()) {
-            //Not sure why original implementation need this
-//            if (otherInformation2.isEmpty() || otherInformation2.length() > 300) {
-//                JOptionPane.showMessageDialog(mg, "Enter a valid value ( 1 to 300 chars)");
-//                return false;
-//            }
             return validDate(otherInformation2);
         }
         return true;

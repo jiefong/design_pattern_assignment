@@ -12,7 +12,7 @@ import java.util.HashMap;
  *
  * @author jiefo
  */
-public interface AcquaintancesSystem {
+public interface AcquaintancesSystem{
     public void addAcquaintances(AcquaintancesSystem acquaintances);
     public void removeAcquaintances(int position);
     public AcquaintancesSystem getAcquaintances(int position);
