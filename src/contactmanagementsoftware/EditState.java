@@ -14,20 +14,9 @@ public class EditState extends PanelState {
     public EditState(MUI mui) {
         super(mui);
     }
-
+    
     @Override
-    public void setDescription() {
-        mui.getNameField().setEditable(true);
-        mui.getMobileField().setEditable(true);
-        mui.getEmailField().setEditable(true);
-        mui.getOtherInformationField1().setEditable(true);
-        mui.getOtherInformationField2().setEditable(true);
-        mui.getOtherInformationField3().setEditable(true);
-
-        mui.getJButtonConfirmDetails().setText("Save");
-        mui.getJButtonConfirmDetails().setVisible(true);
-        mui.getJButtonCancleDetails().setVisible(true);
-
+    void getAcquaintancesDetails(){
         Acquaintances e = (Acquaintances) mui.getAc().getAcquaintances(mui.getX()).getAcquaintances(mui.getNum());
         mui.getNameField().setText(e.getName());
         mui.getMobileField().setText(e.getMobileNo());
@@ -59,61 +48,41 @@ public class EditState extends PanelState {
             default:
                 break;
         }
+    }
+    @Override
+    void setFormFieldEditable() {
+        setFormFieldEditable(true);
+    }
 
+    @Override
+    public void setPanelTitle() {
         switch (mui.getX()) {
             case 0:
-                mui.getOtherInformationField2().setVisible(true);
-                mui.getOtherInformationField3().setVisible(true);
-                mui.getJPanelDetailsForm().setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Personal Friends Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16)));
-                mui.getJLabelOtherInformation1().setText("Specific Events:");
-                mui.getJLabel8OtherInformation2().setText("First Acquaintance Context:");
-                mui.getJLabelOtherInformation3().setVisible(true);
-                mui.getJLabelDetailsTableTitle().setVisible(true);
-                mui.getJLabel8OtherInformation2().setVisible(true);
-                mui.getJLabelOtherInformation1().setVisible(true);
-                mui.getJScrollPane5().setVisible(true);
-                mui.getJScrollPane4().setVisible(true);
-                mui.getJLabelOtherInformation3().setText("<html>First Acquaintance Date:<br>(dd/mm/yyyy)</html>");
+                setPanelTitle("Edit Personal Friends Details");
                 break;
             case 1:
-                mui.getJPanelDetailsForm().setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Relatives Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16)));
-                mui.getJLabelOtherInformation1().setText("<html>Relatives Birthday:<br> (dd/mm/yyyy)</html>");
-                mui.getJLabel8OtherInformation2().setVisible(true);
-                mui.getJLabelOtherInformation1().setVisible(true);
-                mui.getOtherInformationField2().setVisible(true);
-                mui.getJLabel8OtherInformation2().setText("<html>Last Date met:<br> (dd/mm/yyyy)</html>");
-                mui.getJLabelOtherInformation3().setVisible(false);
-                mui.getOtherInformationField3().setVisible(false);
-                mui.getJScrollPane4().setVisible(true);
-                mui.getJScrollPane5().setVisible(false);
+                setPanelTitle("Edit Relatives Details");
                 break;
             case 2:
-                mui.getJPanelDetailsForm().setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Professional Friends Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16)));
-                mui.getJLabelOtherInformation1().setText("Common Interests: ");
-                mui.getJLabelOtherInformation1().setVisible(true);
-                mui.getJLabel8OtherInformation2().setVisible(false);
-                mui.getOtherInformationField2().setVisible(false);
-                mui.getJScrollPane4().setVisible(false);
-                mui.getJLabelOtherInformation3().setVisible(false);
-                mui.getOtherInformationField3().setVisible(false);
-                mui.getJScrollPane5().setVisible(false);
+                setPanelTitle("Edit Professional Friends Details");
                 break;
             case 3:
-                mui.getJPanelDetailsForm().setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Edit Casual Acquaintances Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("DialogInput", 1, 16)));
-                mui.getJScrollPane5().setVisible(true);
-                mui.getJScrollPane4().setVisible(true);
-                mui.getOtherInformationField2().setVisible(true);
-                mui.getOtherInformationField3().setVisible(true);
-                mui.getJLabelOtherInformation1().setVisible(true);
-                mui.getJLabel8OtherInformation2().setVisible(true);
-                mui.getJLabelOtherInformation3().setVisible(true);
-                mui.getJLabelOtherInformation1().setText("First meeting time & location:");
-                mui.getJLabel8OtherInformation2().setText("First meeting CIrcumstances:");
-                mui.getJLabelOtherInformation3().setText("Other useful information:");
+                setPanelTitle("Edit Casual Acquaintances Details");
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    void setConfirmButton() {
+        mui.getJButtonConfirmDetails().setText("Save");
+        mui.getJButtonConfirmDetails().setVisible(true);
+    }
+
+    @Override
+    void setCancelButton() {
+        mui.getJButtonCancleDetails().setVisible(true);
     }
 
 }

@@ -13,6 +13,8 @@ import java.util.HashMap;
  *
  * @author jiefo
  */
+
+
 public class AcquaintancesList implements AcquaintancesSystem, Serializable {
 
     ArrayList<AcquaintancesSystem> acquaintanceList;
@@ -21,7 +23,6 @@ public class AcquaintancesList implements AcquaintancesSystem, Serializable {
     public AcquaintancesList(String name) {
         this.name = name;
         acquaintanceList = new ArrayList();
-        String[] arr = {"abc", "123"};
     }
     
     public String getName(){
