@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class ProfessionalFriends extends Acquaintances {
 
-//    private String CommonInterests;
     public static int numberProF = 0;
     
     ProfessionalFriends() {
@@ -14,12 +13,6 @@ public class ProfessionalFriends extends Acquaintances {
         numberProF++;
         otherInformations = new PROFOtherInformations();
     }
-    
-//    ProfessionalFriends(String name, String mobileNo, String email, String commonInterest) {
-//        super(name, mobileNo, email);
-//        numberProF++;
-//        otherInformations = new PROFOtherInformations(commonInterest);
-//    }
 
     @Override
     public String getName() {
@@ -58,7 +51,6 @@ public class ProfessionalFriends extends Acquaintances {
 
     @Override
     public void setOtherInformations(String[] othersInfoArray) {
-//        Scanner reader = new Scanner(System.in);
         String commonInterests = othersInfoArray[0];
         if (!commonInterests.isEmpty()) {
             HashMap<String, String> otherInformationsHashMap = new HashMap<>();
@@ -66,7 +58,6 @@ public class ProfessionalFriends extends Acquaintances {
             otherInformations.setOtherInformations(otherInformationsHashMap);
         } else {
             System.out.println("Enter at least one character");
-//            setOtherInformations(reader.nextLine());
         }
     }
 }

@@ -45,8 +45,6 @@ public class MUI extends javax.swing.JFrame {
 
     private String op;
     private String str;
-//    private ArrayList<JTextComponent> acquaintanceFormComponent = new ArrayList<>();
-//    private Manager manager;
     private AcquaintancesFactory acqFactory;
 
     private PanelState currentPanelState;
@@ -738,7 +736,6 @@ public class MUI extends javax.swing.JFrame {
             System.out.println("Try to Save");
             SerializationUtil util = SerializationUtil.getInstance();
             util.serialize(ac, fileName);
-//            SerializationUtil.serialize(a, fileName);
             System.out.println("Save sucessfully");
         } catch (IOException e) {
             System.out.println("Saving Error: " + e);

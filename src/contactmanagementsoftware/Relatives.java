@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Relatives extends Acquaintances{
-//    private String BDate;
-//    private String LDate;
     public static int numberRel = 0;
     private static Scanner reader = new Scanner(System.in);
     
@@ -14,12 +12,7 @@ public class Relatives extends Acquaintances{
         numberRel++;
         otherInformations = new ROtherInformations();
     }
-    
-//    Relatives(String name, String mobileNo, String email, String relativesBirthday, String lastDayMet){
-//        super(name, mobileNo, email);
-//        numberRel++;
-//        otherInformations = new ROtherInformations(relativesBirthday,lastDayMet);
-//    }
+
     
     @Override
     public String getName() {
@@ -56,18 +49,10 @@ public class Relatives extends Acquaintances{
         return otherInformationsHashMap.get("RelativesBirthday");
     }
 
-//    public void setBDate(String BDate) {
-//        this.BDate = BDate;
-//    }
-
     public String getLDate() {
         HashMap<String, String> otherInformationsHashMap = otherInformations.getOtherInformations();
         return otherInformationsHashMap.get("LastDateMet");
     }
-
-//    public void setLDate(String LDate) {
-//        this.LDate = LDate;
-//    }
     
     @Override
     public void setOtherInformations(String[] othersInfoArray){
