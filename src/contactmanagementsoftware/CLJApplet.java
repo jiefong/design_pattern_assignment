@@ -14,24 +14,24 @@ import javax.swing.JApplet;
  */
 public class CLJApplet extends JApplet {
     
-    private static ArrayList<ArrayList<Acquaintances>> a = new ArrayList<>();
-    private static ArrayList<Acquaintances> perF1 = new ArrayList<>();
-    private static ArrayList<Acquaintances> rel1 = new ArrayList<>();
-    private static ArrayList<Acquaintances> proF1 = new ArrayList<>();
-    private static ArrayList<Acquaintances> ca1 = new ArrayList<>();
-    
+    private static AcquaintancesSystem ac = new AcquaintancesList("master");
+    private static AcquaintancesSystem perF1 = new AcquaintancesList("Personal Friends");
+    private static AcquaintancesSystem rel1 = new AcquaintancesList("Relatives");
+    private static AcquaintancesSystem proF1 = new AcquaintancesList("Professional Friends");
+    private static AcquaintancesSystem ca1 = new AcquaintancesList("Casual Acquaintance");
 
     @Override
     public void init() {
         MUI mg = new MUI();
-        a.add(perF1);
-        a.add(rel1);
-        a.add(proF1);
-        a.add(ca1);
+        ac.addAcquaintances(perF1);
+        ac.addAcquaintances(rel1);
+        ac.addAcquaintances(proF1);
+        ac.addAcquaintances(ca1);
+
         this.add(mg.getContentPane());
         this.setSize(mg.getContentPane().getSize());
         this.setMinimumSize(mg.getContentPane().getSize());
         mg.setMg(mg);
-        mg.setA(a);
+        mg.setAc(ac);
     }
 }
