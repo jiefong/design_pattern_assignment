@@ -1,49 +1,15 @@
-# design_pattern_assignment
+# Contact Management System (CMS)
 
-<h2>View 1</h2>
-jPanel1 -> Main UI Panel
+## About
+This is the assignment for WIF3007 Design Pattern
+We are required to improve the Contact Management System (CMS) and apply as many design patterns to redesign it.
 
-1. jButton1ActionPerformed => Add Button
-2. jButton2ActionPerformed => Delete Button
-3. jButton3ActionPerformed => Search Button
-4. jButton4ActionPerformed => Exit Button
-5. jButton5ActionPerformed => Edit Button
-6. jButton6ActionPerformed => View Full Details Button
-7. jButton7ActionPerformed => Read From File Button
-8. jButton8ActionPerformed => Save As File Button
+Acknowledgment: The initial implementation of the CMS is from https://github.com/ritz301/Contact-Management-System
 
-jLabel3 -> "Details"
-jXTable1 -> Details Table (Inside JScrollPane2)
-
-jLabel1 -> "Select Category"
-jList1 -> Select Category List (Inside JScrollPane1)
-
-<h2>View 2</h2>
-jPanel2 -> Search Result Panel
-
-9. jButton9ActionPerformed => Back to Main Menu Button
-jTextPanel -> Search details Details (Inside JScrollPane3)
-
-<h2>View 3</h2>
-jPanel3 -> Casual Acquaintance Panel
-
-10. jButton10ActionPerformed => Add contact button
-11. jButton11ActionPerformed => Cancel Button
-
-jLabel4 -> "Name:"
-jTextField name => Name Text Field
-
-jLabel5 -> "Mobile No:"
-jTextField mobile => Mobile Text Field
-
-jLabel6 -> "Email"
-jTextField email => Email Text Field
-
-jLabel7 -> "First meeting time & location:"
-JtextArea one => Text Area for First meeting time & location (Inside JScrollPane6)
-
-jLabel8 -> "First meeting Circumstances:"
-JtextArea two => Text Area for First meeting Circumstances (Inside JScrollPane4)
-
-jLabel9 -> "Other useful information:"
-JtextArea three => Text Area for Other useful information (Inside JScrollPane5)
+We have applied 6 design pattern to improve the CMS, the design pattern are as follows:
+1. Strategy Design Pattern
+2. Simple Factory Design Pattern
+3. State Design Pattern
+4. Singleton Design Pattern
+5. Composite Design Pattern
+6. Template Design Pattern
